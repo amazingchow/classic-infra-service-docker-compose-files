@@ -2,11 +2,11 @@ scripts for setting up many fondamental components
 
 ### stable 
 
-[x] zookeeper
-[x] kafka
+- [x] zookeeper
+- [x] kafka
 
 ### staging
 
-[x] cassandra
-[x] minio
-[x] seaweedfs
+- [x] cassandra
+- [x] minio
+- [x] seaweedfs
