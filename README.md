@@ -1,8 +1,6 @@
-# awesome-compose
+# awesome-docker-compose
 
-A fancy collection of compose scripts for you to set up many fondamental components, like Kafka.
-
-[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org) 
+A fancy collection of docker compose files for you to setup many fondamental components, like kafka, zookeeper.
 
 ## Contributing
 
@@ -16,7 +14,7 @@ A fancy collection of compose scripts for you to set up many fondamental compone
 
 ### Step 3
 
-* 🔃 Create a new PR using https://github.com/amazingchow/awesome-compose/compare!
+* 🔃 Create a new PR using https://github.com/amazingchow/awesome-docker-compose/compare!
 
 ## Support
 
