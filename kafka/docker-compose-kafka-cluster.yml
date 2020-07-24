@@ -1,8 +1,7 @@
-version: '3.7'
+version: "3.7"
 services:
   ################################################################
-  # The Zookeeper cluster 
-  #   - zookeeper-node1
+  # The Zookeeper Cluster - Node-1
   ################################################################  
   zk1:
     image: zookeeper:3.5
@@ -13,8 +12,7 @@ services:
       ZOO_MY_ID: 1
       ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181 server.2=zk2:2888:3888;2181 server.3=zk3:2888:3888;2181
   ################################################################
-  # The Zookeeper cluster 
-  #   - zookeeper-node2
+  # The Zookeeper Cluster - Node-2
   ################################################################        
   zk2:
     image: zookeeper:3.5
@@ -25,8 +23,7 @@ services:
       ZOO_MY_ID: 2
       ZOO_SERVERS: server.1=zk1:2888:3888;2181 server.2=0.0.0.0:2888:3888;2181 server.3=zk3:2888:3888;2181
   ################################################################
-  # The Zookeeper cluster 
-  #   - zookeeper-node3
+  # The Zookeeper Cluster - Node-3
   ################################################################        
   zk3:
     image: zookeeper:3.5
@@ -38,8 +35,7 @@ services:
       ZOO_SERVERS: server.1=zk1:2888:3888;2181 server.2=zk2:2888:3888;2181 server.3=0.0.0.0:2888:3888;2181
   
   ################################################################
-  # The Kafka cluster 
-  #   - kafka-node1
+  # The Kafka Cluster - Node-1
   ################################################################       
   kafka1:
     image: wurstmeister/kafka:2.11-1.1.1
@@ -48,15 +44,23 @@ services:
     environment:
       KAFKA_ADVERTISED_HOST_NAME: "a.b.c.d" # localhost ip
       KAFKA_ZOOKEEPER_CONNECT: "zk1:2181,zk2:2181,zk3:2181"
-      KAFKA_CREATE_TOPICS: "face-engine-data:3:3,face-feature-data:3:3,face-garbage-data:3:3,engine-object-info:3:3"
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_DELETE_TOPIC_ENABLE: "true"
+      KAFKA_CREATE_TOPICS: "topic-1:3:3,topic-2:3:3,topic-3:3:3"
+      KAFKA_COMPRESSION_TYPE: "producer"
       KAFKA_MESSAGE_MAX_BYTES: 200000
-      KAFKA_LOG_RETENTION_BYTES: 1073741824
+      KAFKA_LOG_DIRS: "/var/lib/kafka0/disk00"
+      KAFKA_LOG_CLEANUP_POLICY: "delete"
+      kAFKA_LOG_CLEANER_ENABLE: "false"
+      KAFKA_LOG_SEGMENT_BYTES: 209715200
+      KAFKA_LOG_SEGMENT_DELETE_DELAY_MS: 60000
+      KAFKA_LOG_RETENTION_BYTES: 209715200
       KAFKA_LOG_RETENTION_HOURS: 24
     volumes:
+      - /data/kafka0/disk00:/var/lib/kafka0/disk00
       - /var/run/docker.sock:/var/run/docker.sock
   ################################################################
-  # The Kafka cluster 
-  #   - kafka-node2
+  # The Kafka Cluster - Node-2
   ################################################################        
   kafka2:
     image: wurstmeister/kafka:2.11-1.1.1
@@ -65,15 +69,23 @@ services:
     environment:
       KAFKA_ADVERTISED_HOST_NAME: "a.b.c.d" # localhost ip
       KAFKA_ZOOKEEPER_CONNECT: "zk1:2181,zk2:2181,zk3:2181"
-      KAFKA_CREATE_TOPICS: "face-engine-data:3:3,face-feature-data:3:3,face-garbage-data:3:3,engine-object-info:3:3"
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_DELETE_TOPIC_ENABLE: "true"
+      KAFKA_CREATE_TOPICS: "topic-1:3:3,topic-2:3:3,topic-3:3:3"
+      KAFKA_COMPRESSION_TYPE: "producer"
       KAFKA_MESSAGE_MAX_BYTES: 200000
-      KAFKA_LOG_RETENTION_BYTES: 1073741824
+      KAFKA_LOG_DIRS: "/var/lib/kafka0/disk00"
+      KAFKA_LOG_CLEANUP_POLICY: "delete"
+      kAFKA_LOG_CLEANER_ENABLE: "false"
+      KAFKA_LOG_SEGMENT_BYTES: 209715200
+      KAFKA_LOG_SEGMENT_DELETE_DELAY_MS: 60000
+      KAFKA_LOG_RETENTION_BYTES: 209715200
       KAFKA_LOG_RETENTION_HOURS: 24
     volumes:
+      - /data/kafka1/disk00:/var/lib/kafka0/disk00
       - /var/run/docker.sock:/var/run/docker.sock
   ################################################################
-  # The Kafka cluster 
-  #   - kafka-node3
+  # The Kafka Cluster - Node-3
   ################################################################        
   kafka3:
     image: wurstmeister/kafka:2.11-1.1.1
@@ -82,9 +94,18 @@ services:
     environment:
       KAFKA_ADVERTISED_HOST_NAME: "a.b.c.d" # localhost ip
       KAFKA_ZOOKEEPER_CONNECT: "zk1:2181,zk2:2181,zk3:2181"
-      KAFKA_CREATE_TOPICS: "face-engine-data:3:3,face-feature-data:3:3,face-garbage-data:3:3,engine-object-info:3:3"
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_DELETE_TOPIC_ENABLE: "true"
+      KAFKA_CREATE_TOPICS: "topic-1:3:3,topic-2:3:3,topic-3:3:3"
+      KAFKA_COMPRESSION_TYPE: "producer"
       KAFKA_MESSAGE_MAX_BYTES: 200000
-      KAFKA_LOG_RETENTION_BYTES: 1073741824
+      KAFKA_LOG_DIRS: "/var/lib/kafka0/disk00"
+      KAFKA_LOG_CLEANUP_POLICY: "delete"
+      kAFKA_LOG_CLEANER_ENABLE: "false"
+      KAFKA_LOG_SEGMENT_BYTES: 209715200
+      KAFKA_LOG_SEGMENT_DELETE_DELAY_MS: 60000
+      KAFKA_LOG_RETENTION_BYTES: 209715200
       KAFKA_LOG_RETENTION_HOURS: 24
     volumes:
+      - /data/kafka2/disk00:/var/lib/kafka0/disk00
       - /var/run/docker.sock:/var/run/docker.sock
