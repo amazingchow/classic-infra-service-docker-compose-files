@@ -1,8 +1,7 @@
-version: '3.7'
+version: "3.7"
 services:
   ################################################################
-  # The Zookeeper cluster 
-  #   - zookeeper-node1
+  # The Zookeeper Cluster - Node-1
   ################################################################  
   zk1:
     image: zookeeper:3.5
@@ -13,8 +12,7 @@ services:
       ZOO_MY_ID: 1
       ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181 server.2=zk2:2888:3888;2181 server.3=zk3:2888:3888;2181
   ################################################################
-  # The Zookeeper cluster 
-  #   - zookeeper-node2
+  # The Zookeeper Cluster - Node-2
   ################################################################        
   zk2:
     image: zookeeper:3.5
@@ -25,8 +23,7 @@ services:
       ZOO_MY_ID: 2
       ZOO_SERVERS: server.1=zk1:2888:3888;2181 server.2=0.0.0.0:2888:3888;2181 server.3=zk3:2888:3888;2181
   ################################################################
-  # The Zookeeper cluster 
-  #   - zookeeper-node3
+  # The Zookeeper Cluster - Node-3
   ################################################################        
   zk3:
     image: zookeeper:3.5
