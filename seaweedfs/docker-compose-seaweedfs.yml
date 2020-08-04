@@ -1,0 +1,48 @@
+version: "3.7"
+services:
+  # Check System Status
+  # curl "http://127.0.0.1:9333/cluster/status?pretty=y"
+  # curl "http://127.0.0.1:9333/dir/status?pretty=y"
+  master:
+    image: chrislusf/seaweedfs:1.80
+    ports:
+      - 9333:9333
+      - 19333:19333
+    command: 'master -ip=master -mdir=/meta'
+    volumes:
+      - ~/seaweedfs/meta:/meta
+  
+  # Check Volume Server Status
+  # curl "http://127.0.0.1:8080/status?pretty=y"
+  volume:
+    image: chrislusf/seaweedfs:1.80
+    ports:
+      - 8080:8080
+      - 18080:18080
+    command: 'volume -dir=/data -mserver="master:9333"'
+    volumes:
+      - ~/seaweedfs/data:/data    
+    depends_on:
+      - master
+
+  filer:
+    image: chrislusf/seaweedfs:1.80
+    ports:
+      - 8888:8888
+      - 18888:18888
+    command: 'filer -master="master:9333"'
+    tty: true
+    stdin_open: true
+    depends_on:
+      - master
+      - volume
+  
+  s3:
+    image: chrislusf/seaweedfs:1.80
+    ports:
+      - 8333:8333
+    command: 's3 -filer="filer:8888"'
+    depends_on:
+      - master
+      - volume
+      - filer
