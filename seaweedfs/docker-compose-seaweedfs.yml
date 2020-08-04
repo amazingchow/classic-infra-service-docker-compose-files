@@ -8,9 +8,11 @@ services:
     ports:
       - 9333:9333
       - 19333:19333
-    command: 'master -ip=master -mdir=/meta'
+    entrypoint: /data/entrypoint/entrypoint.sh
+    command: 'master -ip=master -mdir=/data/weed/meta -peers=master:9333'
     volumes:
-      - ~/seaweedfs/meta:/meta
+      - ~/seaweedfs/meta:/data/weed/meta
+      - ~/seaweedfs/entrypoint:/data/entrypoint
   
   # Check Volume Server Status
   # curl "http://127.0.0.1:8080/status?pretty=y"
@@ -19,9 +21,11 @@ services:
     ports:
       - 8080:8080
       - 18080:18080
-    command: 'volume -dir=/data -mserver="master:9333"'
+    entrypoint: /data/entrypoint/entrypoint.sh
+    command: 'volume -dir=/data/weed/data/volume -mserver="master:9333"'
     volumes:
-      - ~/seaweedfs/data:/data    
+      - ~/seaweedfs/data/volume:/data/weed/data/volume
+      - ~/seaweedfs/entrypoint:/data/entrypoint
     depends_on:
       - master
 
