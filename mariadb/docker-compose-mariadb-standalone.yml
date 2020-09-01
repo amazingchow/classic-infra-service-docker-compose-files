@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+  # mariadb数据库
+  db:
+    image: mariadb:10.3
+    ports:
+      - 13306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: yunan0808
+      MYSQL_DATABASE: test
+
+  # admin管理后台
+  admin:
+    image: adminer:4.7-standalone
+    ports:
+      - 18080:8080
