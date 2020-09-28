@@ -1,16 +1,16 @@
-version: '3.7'
+version: "3.7"
 networks:
   cassandra_net:
     external:
       name: component-net
 services:
   ################################################################
-  # The Casandra cluster 
-  #   - cassandra-node1
+  # The Casandra Cluster - Node-1
   ################################################################
   cassandra-001:
     image: cassandra:3.11.5
     container_name: cassandra_001
+    hostname: cassandra-001
     ports:
       - "17000:7000" # Internode communication (not used if TLS enabled)
       - "19041:9042" # CQL native transport port
@@ -23,12 +23,12 @@ services:
     networks:
       - cassandra_net
   ################################################################
-  # The Casandra cluster 
-  #   - cassandra-node2
+  # The Casandra Cluster - Node-1
   ################################################################      
   cassandra-002:
     image: cassandra:3.11.5
     container_name: cassandra_002
+    hostname: cassandra-002
     depends_on:
       - cassandra-001
     ports:
@@ -44,12 +44,12 @@ services:
     networks:
       - cassandra_net
   ################################################################
-  # The Casandra cluster 
-  #   - cassandra-node3
+  # The Casandra Cluster - Node-1
   ################################################################      
   cassandra-003:
     image: cassandra:3.11.5
     container_name: cassandra_003
+    hostname: cassandra-003
     depends_on:
       - cassandra-001
     ports:
