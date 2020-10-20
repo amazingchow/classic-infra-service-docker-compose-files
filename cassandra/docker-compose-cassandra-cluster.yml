@@ -19,11 +19,11 @@ services:
       HEAP_NEWSIZE: "128M"
       CASSANDRA_BROADCAST_ADDRESS: "cassandra-001"
     volumes:
-      - /data/cassandra/data_01:/var/lib/cassandra
+      - ~/cassandra/data_01:/var/lib/cassandra
     networks:
       - cassandra_net
   ################################################################
-  # The Casandra Cluster - Node-1
+  # The Casandra Cluster - Node-2
   ################################################################      
   cassandra-002:
     image: cassandra:3.11.5
@@ -40,11 +40,11 @@ services:
       CASSANDRA_BROADCAST_ADDRESS: "cassandra-002"
       CASSANDRA_SEEDS: "cassandra-001"  
     volumes:
-      - /data/cassandra/data_02:/var/lib/cassandra
+      - ~/cassandra/data_02:/var/lib/cassandra
     networks:
       - cassandra_net
   ################################################################
-  # The Casandra Cluster - Node-1
+  # The Casandra Cluster - Node-3
   ################################################################      
   cassandra-003:
     image: cassandra:3.11.5
@@ -61,6 +61,6 @@ services:
       CASSANDRA_BROADCAST_ADDRESS: "cassandra-003"
       CASSANDRA_SEEDS: "cassandra-001"
     volumes:
-      - /data/cassandra/data_03:/var/lib/cassandra
+      - ~/cassandra/data_03:/var/lib/cassandra
     networks:
       - cassandra_net
