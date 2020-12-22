@@ -1,6 +1,6 @@
-# awesome-docker-compose
+# photon-dance-docker-compose
 
-A fancy collection of docker compose files for you to setup many fondamental components, like kafka, zookeeper.
+A fancy collection of docker compose scripts for you to setup many fondamental components, like kafka, zookeeper, etc.
 
 ## Contributing
 
@@ -14,7 +14,7 @@ A fancy collection of docker compose files for you to setup many fondamental com
 
 ### Step 3
 
-* 🔃 Create a new PR using https://github.com/amazingchow/awesome-docker-compose/compare!
+* 🔃 Create a new PR using https://github.com/amazingchow/photon-dance-docker-compose/compare!
 
 ## Support
 
