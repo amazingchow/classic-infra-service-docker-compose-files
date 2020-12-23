@@ -1,20 +1,14 @@
 version: "3.7"
-networks:
-  cassandra_net:
-    external:
-      name: component-net
 services:
-  cassandra-001:
+  cassandra:
     image: cassandra:3.11.5
-    container_name: cassandra_001
-    hostname: cassandra-001
+    container_name: cassandra
+    hostname: cassandra
     ports:
       - "9042:9042" # CQL native transport port
     environment:
       MAX_HEAP_SIZE: "256M"
       HEAP_NEWSIZE: "128M"
-      CASSANDRA_BROADCAST_ADDRESS: "cassandra-001"
+      CASSANDRA_BROADCAST_ADDRESS: "cassandra"
     volumes:
-      - /data/cassandra/data_01:/var/lib/cassandra
-    networks:
-      - cassandra_net
+      - /data/cassandra/data:/var/lib/cassandra
