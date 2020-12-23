@@ -9,4 +9,4 @@ services:
       - MINIO_SECRET_KEY=admin12345
     command: server /data
     volumes:
-      - ~/minio:/data
+      - /data/minio/data:/data

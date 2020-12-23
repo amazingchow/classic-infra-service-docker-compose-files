@@ -3,36 +3,36 @@ services:
   ################################################################
   # The Zookeeper Cluster
   ################################################################  
-  zkcluster_n1:
+  zk_cluster_n1:
     image: zookeeper:3.5
-    hostname: zkcluster_n1
+    hostname: zk_cluster_n1
     ports:
       - 2181:2181
     environment:
       ZOO_MY_ID: 1
-      ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181 server.2=zkcluster_n2:2888:3888;2181 server.3=zkcluster_n3:2888:3888;2181
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181 server.2=zk_cluster_n2:2888:3888;2181 server.3=zk_cluster_n3:2888:3888;2181
     # volumes:
     #   - /data/zookeeper00/data:/data
     #   - /data/zookeeper00/datalog:/datalog
-  zkcluster_n2:
+  zk_cluster_n2:
     image: zookeeper:3.5
-    hostname: zkcluster_n2
+    hostname: zk_cluster_n2
     ports:
       - 2182:2181
     environment:
       ZOO_MY_ID: 2
-      ZOO_SERVERS: server.1=zkcluster_n1:2888:3888;2181 server.2=0.0.0.0:2888:3888;2181 server.3=zkcluster_n3:2888:3888;2181
+      ZOO_SERVERS: server.1=zk_cluster_n1:2888:3888;2181 server.2=0.0.0.0:2888:3888;2181 server.3=zk_cluster_n3:2888:3888;2181
     # volumes:
     #   - /data/zookeeper01/data:/data
     #   - /data/zookeeper01/datalog:/datalog  
-  zkcluster_n3:
+  zk_cluster_n3:
     image: zookeeper:3.5
-    hostname: zkcluster_n3
+    hostname: zk_cluster_n3
     ports:
       - 2183:2181
     environment:
       ZOO_MY_ID: 3
-      ZOO_SERVERS: server.1=zkcluster_n1:2888:3888;2181 server.2=zkcluster_n2:2888:3888;2181 server.3=0.0.0.0:2888:3888;2181
+      ZOO_SERVERS: server.1=zk_cluster_n1:2888:3888;2181 server.2=zk_cluster_n2:2888:3888;2181 server.3=0.0.0.0:2888:3888;2181
     # volumes:
     #   - /data/zookeeper02/data:/data
     #   - /data/zookeeper02/datalog:/datalog
