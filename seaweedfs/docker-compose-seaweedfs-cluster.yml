@@ -1,0 +1,81 @@
+version: "3.7"
+services:
+  ################################################################
+  # The Seaweedfs Cluster
+  ################################################################
+  # Check System Status
+  # curl "http://127.0.0.1:9333/cluster/status?pretty=y"
+  # curl "http://127.0.0.1:9333/dir/status?pretty=y"
+  master0:
+    image: chrislusf/seaweedfs:1.80
+    ports:
+      - 9333:9333
+      - 19333:19333
+    entrypoint: /data/entrypoint/entrypoint.sh
+    command: "master -ip=master0 -port=9333 -peers=master0:9333,master1:9334,master2:9335 -mdir=/data/weed/meta1"
+    volumes:
+      - ~/seaweedfs/weed-meta1:/data/weed/meta1
+      - ~/seaweedfs/entrypoint:/data/entrypoint
+  master1:
+    image: chrislusf/seaweedfs:1.80
+    ports:
+      - 9334:9334
+      - 19334:19334
+    entrypoint: /data/entrypoint/entrypoint.sh
+    command: "master -ip=master1 -port=9334 -peers=master0:9333,master1:9334,master2:9335 -mdir=/data/weed/meta2"
+    volumes:
+      - ~/seaweedfs/weed-meta2:/data/weed/meta2
+      - ~/seaweedfs/entrypoint:/data/entrypoint
+  master2:
+    image: chrislusf/seaweedfs:1.80
+    ports:
+      - 9335:9335
+      - 19335:19335
+    entrypoint: /data/entrypoint/entrypoint.sh
+    command: "master -ip=master2 -port=9335 -peers=master0:9333,master1:9334,master2:9335 -mdir=/data/weed/meta3"
+    volumes:
+      - ~/seaweedfs/weed-meta3:/data/weed/meta3
+      - ~/seaweedfs/entrypoint:/data/entrypoint
+
+  # Check Volume Server Status
+  # curl "http://127.0.0.1:8080/status?pretty=y"
+  volume:
+    image: chrislusf/seaweedfs:1.80
+    ports:
+      - 8080:8080
+      - 18080:18080
+    entrypoint: /data/entrypoint/entrypoint.sh
+    command: 'volume -ip=volume -port=8080 -mserver="master0:9333,master1:9334,master2:9335" -publicUrl=localhost:8080'
+    volumes:
+      - ~/seaweedfs/weed-volume:/data/weed/data/volume
+      - ~/seaweedfs/entrypoint:/data/entrypoint
+    depends_on:
+      - master0
+      - master1
+      - master2
+
+  filer:
+    image: chrislusf/seaweedfs:1.80
+    ports:
+      - 8888:8888
+      - 18888:18888
+    command: 'filer -master="master0:9333,master1:9334,master2:9335"'
+    tty: true
+    stdin_open: true
+    depends_on:
+      - master0
+      - master1
+      - master2
+      - volume
+  
+  s3:
+    image: chrislusf/seaweedfs:1.80
+    ports:
+      - 8333:8333
+    command: 's3 -filer="filer:8888"'
+    depends_on:
+      - master0
+      - master1
+      - master2
+      - volume
+      - filer
