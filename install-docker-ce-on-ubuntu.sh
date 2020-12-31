@@ -1,7 +1,6 @@
-#!/bin/bash -x
+#!/bin/bash
 
-REMOVE_OLD=${1:-true}
-INSTALL_LATEST=${1:-true}
+set -ex
 
 function yes_no_continue() {
     read -p "Are you sure? " -n 1 -r
@@ -23,12 +22,7 @@ function remove_old_version_docker_tools() {
 
     sudo apt-get remove -y docker docker-engine containerd runc
 }
-if [ "${REMOVE_OLD}" = "true" ]; then
-    remove_old_version_docker_tools
-else
-    echo ">>> old docker will not be removed!!!"
-    docker -v
-fi
+remove_old_version_docker_tools
 
 function install_new_version_docker_tool() {
     sudo apt-get update -y
@@ -42,8 +36,11 @@ function install_new_version_docker_tool() {
     
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     sudo apt-key fingerprint 0EBFCD88
+    # 如果是在Linux Mint上安装docker, 需要手动替换 $(lsb_release -cs) 结果
+    # 具体参考 https://www.linuxmint.com/download_all.php
+    # 然后手动添加到 /etc/apt/sources.list.d/additional-repositories.list
     sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-
+                             
     sudo apt-get update -y
 
     sudo apt-cache policy docker-ce
@@ -62,12 +59,7 @@ function install_new_version_docker_tool() {
     docker -v
     docker image ls
 }
-if [ "`which docker`" = "" ]; then
-    install_new_version_docker_tool
-else
-    echo ">>> docker already installed!!!"
-    docker -v
-fi
+install_new_version_docker_tool
 
 ## docker-compose
 
@@ -78,22 +70,18 @@ function install_docker_compose() {
     sudo curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_RELEASE}/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
     docker-compose -v
-
 }
-if [ "${INSTALL_LATEST}" = "true" ]; then
-    install_docker_compose
-else
-    echo ">>> docker-compose already installed!!!"
-    docker-compose -v
-fi
+install_docker_compose
 
-Ref: https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker
+# Ref: https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker
 
 # nvidia-docker
 
 function install_nvidia_docker() {
-    distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+    distribution=$(. /etc/os-release; echo $ID$VERSION_ID)
     curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+    # 如果是在Linux Mint上安装nvidia-docker, 需要手动替换 $distribution 结果
+    # 具体参考 https://nvidia.github.io/nvidia-docker/
     curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
 
     sudo apt-get update -y
@@ -102,11 +90,6 @@ function install_nvidia_docker() {
     sudo systemctl restart docker
     sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
 }
-if [ "${INSTALL_LATEST}" = "true" ]; then
-    install_nvidia_docker
-else
-    echo ">>> docker-compose already installed!!!"
-    docker-compose -v
-fi
+install_nvidia_docker
 
 sudo apt autoremove -y
