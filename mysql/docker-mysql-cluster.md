@@ -3,7 +3,7 @@
 1. create an internal Docker network that the containers will use to communicate
 
 ```shell
-docker network create mysql-cluster --subnet=192.168.0.0/16
+docker network create mysql-cluster --subnet=192.168.0.0/24
 ```
 
 2. start one management node

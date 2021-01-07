@@ -3,7 +3,7 @@
 1. 创建主从架构可用的网络环境
 
 ```shell
-docker network create mysql-primary-replica --subnet=192.168.0.0/16
+docker network create mysql-primary-replica --subnet=192.168.0.0/24
 ```
 
 2. 先启动主节点
