@@ -49,7 +49,7 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: "zk_cluster_n1:2181,zk_cluster_n2:2181,zk_cluster_n3:2181"
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_DELETE_TOPIC_ENABLE: "true"
-      KAFKA_CREATE_TOPICS: "topic-1:3:3,topic-2:3:3,topic-3:3:3" # your topics
+      KAFKA_CREATE_TOPICS: "topic-1:24:3,topic-2:24:3,topic-3:24:3" # your topics
       KAFKA_COMPRESSION_TYPE: "producer"
       KAFKA_MESSAGE_MAX_BYTES: 200000
       KAFKA_LOG_DIRS: "/var/lib/kafka0/disk00"
@@ -71,7 +71,7 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: "zk_cluster_n1:2181,zk_cluster_n2:2181,zk_cluster_n3:2181"
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_DELETE_TOPIC_ENABLE: "true"
-      KAFKA_CREATE_TOPICS: "topic-1:3:3,topic-2:3:3,topic-3:3:3" # your topics
+      KAFKA_CREATE_TOPICS: "topic-1:24:3,topic-2:24:3,topic-3:24:3" # your topics
       KAFKA_COMPRESSION_TYPE: "producer"
       KAFKA_MESSAGE_MAX_BYTES: 200000
       KAFKA_LOG_DIRS: "/var/lib/kafka0/disk00"
@@ -93,7 +93,7 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: "zk_cluster_n1:2181,zk_cluster_n2:2181,zk_cluster_n3:2181"
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_DELETE_TOPIC_ENABLE: "true"
-      KAFKA_CREATE_TOPICS: "topic-1:3:3,topic-2:3:3,topic-3:3:3" # your topics
+      KAFKA_CREATE_TOPICS: "topic-1:24:3,topic-2:24:3,topic-3:24:3" # your topics
       KAFKA_COMPRESSION_TYPE: "producer"
       KAFKA_MESSAGE_MAX_BYTES: 200000
       KAFKA_LOG_DIRS: "/var/lib/kafka0/disk00"
