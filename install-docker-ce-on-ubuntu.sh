@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -e
 
 function yes_no_continue() {
     read -p "Are you sure? " -n 1 -r
@@ -12,19 +12,17 @@ function yes_no_continue() {
 }
 
 # Ref: https://docs.docker.com/engine/install/ubuntu/
+## Install docker-ce
 
-## docker
-
-function remove_old_version_docker_tools() {
-    for old in `dpkg -l | grep -i docker | awk '{print $2}'`; do
-        sudo apt-get remove -y $old
+function remove_old_version_docker_ce() {
+    for pkg in `dpkg -l | grep -i docker | awk '{print $2}'`; do
+        sudo apt-get remove -y ${pkg}
     done
-
-    sudo apt-get remove -y docker docker-engine containerd runc
+    sudo apt-get remove -y docker containerd runc
 }
-remove_old_version_docker_tools
+remove_old_version_docker_ce
 
-function install_new_version_docker_tool() {
+function install_new_version_docker_ce() {
     sudo apt-get update -y
 
     sudo apt-get install -y \
@@ -44,7 +42,6 @@ function install_new_version_docker_tool() {
     sudo apt-get update -y
 
     sudo apt-cache policy docker-ce
-    yes_no_continue
     sudo apt-get install -y \
         docker-ce \
         docker-ce-cli \
@@ -54,17 +51,17 @@ function install_new_version_docker_tool() {
     sudo systemctl enable docker
 
     id -nG
-    sudo usermod -a -G docker ${USER}
+    sudo usermod -aG docker ${USER}
 
     docker -v
     docker image ls
 }
-install_new_version_docker_tool
+install_new_version_docker_ce
 
-## docker-compose
+## Install docker-compose
 
 function install_docker_compose() {
-    sudo apt remove -y docker-compose
+    sudo apt-get remove -y docker-compose
 
     DOCKER_COMPOSE_RELEASE=`curl -s https://github.com/docker/compose/releases/latest | cut -d'"' -f2 | cut -d'/' -f8-`
     sudo curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_RELEASE}/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
@@ -75,7 +72,7 @@ install_docker_compose
 
 # Ref: https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker
 
-# nvidia-docker
+## Install nvidia-docker
 
 function install_nvidia_docker() {
     distribution=$(. /etc/os-release; echo $ID$VERSION_ID)
