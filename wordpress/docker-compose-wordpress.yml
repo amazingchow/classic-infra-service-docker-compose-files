@@ -9,7 +9,8 @@ services:
       MYSQL_USER: "wordpress_usr"
       MYSQL_PASSWORD: "wordpress_pwd"
     volumes:
-      - /data/mysql00:/var/lib/mysql
+      - ~/mysql/data:/var/lib/mysql
+
   wordpress:
     image: wordpress:5.7
     ports:

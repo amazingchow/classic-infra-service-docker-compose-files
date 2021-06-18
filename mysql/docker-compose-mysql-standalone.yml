@@ -11,7 +11,7 @@ services:
       MYSQL_USER: "tester"
       MYSQL_PASS: "123456"
     volumes:
-      - ~/mysql/data00:/var/lib/mysql
+      - ~/mysql/data:/var/lib/mysql
 
   # admin管理后台
   admin:

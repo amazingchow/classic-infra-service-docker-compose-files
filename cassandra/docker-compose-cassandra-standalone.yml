@@ -11,4 +11,4 @@ services:
       HEAP_NEWSIZE: "128M"
       CASSANDRA_BROADCAST_ADDRESS: "cassandra"
     volumes:
-      - ~/cassandra/node00:/var/lib/cassandra
+      - ~/cassandra/node:/var/lib/cassandra

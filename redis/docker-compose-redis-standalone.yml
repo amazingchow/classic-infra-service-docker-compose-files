@@ -9,4 +9,4 @@ services:
       - REDIS_REPLICATION_MODE=master
     volumes:
       - $PWD/conf.d/redis.conf:/usr/local/etc/redis/redis.conf
-    #   - /data/redis00:/var/lib/redis
+      - ~/redis/data:/var/lib/redis
