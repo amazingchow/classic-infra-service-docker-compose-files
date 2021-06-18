@@ -3,10 +3,12 @@ services:
   ################################################################
   # The Seaweedfs Cluster
   ################################################################
-  ## Check Master
-  # curl "http://127.0.0.1:9333/cluster/status?pretty=y"
+  ## Check Master Server Status
+  # curl "http://localhost:9333/cluster/status?pretty=y"
   ## Check System Status
-  # curl "http://127.0.0.1:9333/dir/status?pretty=y"
+  # curl "http://localhost:9333/dir/status?pretty=y"
+  ## View Master Server Dashboard
+  # http://localhost:9333
   master0:
     image: chrislusf/seaweedfs:1.60
     ports:
@@ -19,14 +21,16 @@ services:
       - ~/seaweedfs/entrypoint:/weed/entrypoint
 
   ## Check Volume Server Status
-  # curl "http://127.0.0.1:8080/status?pretty=y"
+  # curl "http://localhost:8080/status?pretty=y"
+  ## View Volume Server Dashboard
+  # http://localhost:8080/ui/index.html
   volume0:
     image: chrislusf/seaweedfs:1.60
     ports:
       - 8080:8080
       - 18080:18080
     entrypoint: /weed/entrypoint/entrypoint.sh
-    command: 'volume -ip=volume0 -port=8080 -mserver="master0:9333" -max=1000 -dir=/weed/data/volume -rack=0'
+    command: 'volume -port=8080 -mserver="master0:9333" -max=1000 -dir=/weed/data/volume -rack=0'
     volumes:
       - ~/seaweedfs/vdata00:/weed/data/volume
       - ~/seaweedfs/entrypoint:/weed/entrypoint
@@ -34,15 +38,16 @@ services:
       - master0
 
   ## Check Filer Server Status
-  # curl -H "Accept: application/json" "http://127.0.0.1:8888/?pretty=y" 
+  # curl -H "Accept: application/json" "http://localhost:8888/?pretty=y" 
   filer0:
     image: chrislusf/seaweedfs:1.60
     ports:
       - 8888:8888
       - 18888:18888
     entrypoint: /weed/entrypoint/entrypoint.sh
-    command: 'filer -ip=filer0 -port=8888 -defaultReplicaPlacement="000" -master="master0:9333" -collection=faces -encryptVolumeData=true'
+    command: 'filer -port=8888 -defaultReplicaPlacement="000" -master="master0:9333" -collection=faces -encryptVolumeData=true'
     volumes:
+      - ~/seaweedfs/fdata00:/data/filerldb2
       - ~/seaweedfs/entrypoint:/weed/entrypoint
     tty: true
     stdin_open: true
