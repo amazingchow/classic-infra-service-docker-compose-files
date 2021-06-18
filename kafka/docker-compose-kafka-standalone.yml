@@ -8,9 +8,9 @@ services:
     environment:
       ZOO_MY_ID: 1
       ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181
-    # volumes:
-    #   - /data/zookeeper00/data:/data
-    #   - /data/zookeeper00/datalog:/datalog
+    volumes:
+      - ~/zookeeper/node00/data:/data
+      - ~/zookeeper/node00/datalog:/datalog
 
   kafka:
     image: wurstmeister/kafka:2.11-1.1.1
@@ -32,5 +32,5 @@ services:
       KAFKA_LOG_RETENTION_BYTES: 209715200
       KAFKA_LOG_RETENTION_HOURS: 24
     volumes:
-      # - /data/kafka00/disk00:/var/lib/kafka0/disk00
+      - ~/kafka/node00/disk00:/var/lib/kafka0/disk00
       - /var/run/docker.sock:/var/run/docker.sock
