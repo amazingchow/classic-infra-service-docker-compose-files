@@ -27,10 +27,10 @@ services:
       - MINIO_SECRET_KEY=admin12345
     command: server http://minio{1...4}/data{1...4}
     volumes:
-      - /data/minio/data1-1:/data1
-      - /data/minio/data1-2:/data2
-      - /data/minio/data1-3:/data3
-      - /data/minio/data1-4:/data4
+      - ~/minio/data1-1:/data1
+      - ~/minio/data1-2:/data2
+      - ~/minio/data1-3:/data3
+      - ~/minio/data1-4:/data4
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s
@@ -47,10 +47,10 @@ services:
       - MINIO_SECRET_KEY=admin12345
     command: server http://minio{1...4}/data{1...4}
     volumes:
-      - /data/minio/data2-1:/data1
-      - /data/minio/data2-2:/data2
-      - /data/minio/data2-3:/data3
-      - /data/minio/data2-4:/data4
+      - ~/minio/data2-1:/data1
+      - ~/minio/data2-2:/data2
+      - ~/minio/data2-3:/data3
+      - ~/minio/data2-4:/data4
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s
@@ -67,10 +67,10 @@ services:
       - MINIO_SECRET_KEY=admin12345
     command: server http://minio{1...4}/data{1...4}
     volumes:
-      - /data/minio/data3-1:/data1
-      - /data/minio/data3-2:/data2
-      - /data/minio/data3-3:/data3
-      - /data/minio/data3-4:/data4
+      - ~/minio/data3-1:/data1
+      - ~/minio/data3-2:/data2
+      - ~/minio/data3-3:/data3
+      - ~/minio/data3-4:/data4
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s
@@ -87,10 +87,10 @@ services:
       - MINIO_SECRET_KEY=admin12345
     command: server http://minio{1...4}/data{1...4}
     volumes:
-      - /data/minio/data4-1:/data1
-      - /data/minio/data4-2:/data2
-      - /data/minio/data4-3:/data3
-      - /data/minio/data4-4:/data4
+      - ~/minio/data4-1:/data1
+      - ~/minio/data4-2:/data2
+      - ~/minio/data4-3:/data3
+      - ~/minio/data4-4:/data4
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s
