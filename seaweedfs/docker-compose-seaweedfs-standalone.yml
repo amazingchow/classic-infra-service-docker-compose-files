@@ -30,7 +30,7 @@ services:
       - 8080:8080
       - 18080:18080
     entrypoint: /weed/entrypoint/entrypoint.sh
-    command: 'volume -port=8080 -mserver="master0:9333" -max=1000 -dir=/weed/data/volume -rack=0'
+    command: 'volume -ip=volume0 -port=8080 -mserver="master0:9333" -max=1000 -dir=/weed/data/volume -rack=0'
     volumes:
       - ~/seaweedfs/vdata:/weed/data/volume
       - ~/seaweedfs/entrypoint:/weed/entrypoint
@@ -45,7 +45,7 @@ services:
       - 8888:8888
       - 18888:18888
     entrypoint: /weed/entrypoint/entrypoint.sh
-    command: 'filer -port=8888 -defaultReplicaPlacement="000" -master="master0:9333" -collection=faces -encryptVolumeData=true'
+    command: 'filer -port=8888 -defaultReplicaPlacement="000" -master="master0:9333" -collection=faces -encryptVolumeData=false'
     volumes:
       - ~/seaweedfs/fdata:/data/filerldb2
       - ~/seaweedfs/entrypoint:/weed/entrypoint
