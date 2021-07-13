@@ -1,3 +1,3 @@
 compress:
 	# password of vpn
-	zip -e 100_imgs.zip imgs
+	zip -e -r 500_imgs.zip imgs

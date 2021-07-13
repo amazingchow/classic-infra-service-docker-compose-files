@@ -35,5 +35,5 @@ def upload(filepath):
 
 if __name__ == "__main__":
     cwd = os.getcwd()
-    for idx in range(1, 101):
+    for idx in range(1, 501):
         upload("{}/imgs/IT001_001_{:08}.jpg".format(cwd, idx))

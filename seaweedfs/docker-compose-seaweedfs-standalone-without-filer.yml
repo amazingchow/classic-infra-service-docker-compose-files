@@ -1,0 +1,38 @@
+version: "3.7"
+services:
+  ################################################################
+  # The Seaweedfs Cluster
+  ################################################################
+  ## Check Master Server Status
+  # curl "http://localhost:9333/cluster/status?pretty=y"
+  ## Check System Status
+  # curl "http://localhost:9333/dir/status?pretty=y"
+  ## View Master Server Dashboard
+  # http://localhost:9333
+  master0:
+    image: chrislusf/seaweedfs:1.60
+    ports:
+      - 9333:9333
+      - 19333:19333
+    entrypoint: /weed/entrypoint/entrypoint.sh
+    command: 'master -ip=master0 -port=9333 -defaultReplication="000" -peers="master0:9333" -mdir=/weed/data'
+    volumes:
+      - ~/seaweedfs/mdata:/weed/data
+      - ~/seaweedfs/entrypoint:/weed/entrypoint
+
+  ## Check Volume Server Status
+  # curl "http://localhost:8080/status?pretty=y"
+  ## View Volume Server Dashboard
+  # http://localhost:8080/ui/index.html
+  volume0:
+    image: chrislusf/seaweedfs:1.60
+    ports:
+      - 8080:8080
+      - 18080:18080
+    entrypoint: /weed/entrypoint/entrypoint.sh
+    command: 'volume -ip=volume0 -port=8080 -mserver="master0:9333" -max=1000 -dir=/weed/data/volume -rack=0'
+    volumes:
+      - ~/seaweedfs/vdata:/weed/data/volume
+      - ~/seaweedfs/entrypoint:/weed/entrypoint
+    depends_on:
+      - master0
