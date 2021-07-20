@@ -17,7 +17,7 @@ services:
     entrypoint: /weed/entrypoint/entrypoint.sh
     command: 'master -ip=master0 -port=9333 -defaultReplication="010" -peers="master0:9333,master1:9333,master2:9333" -mdir=/weed/data'
     volumes:
-      - ~/seaweedfs/mdata00:/weed/data
+      - /mnt/local/seeweedfs-master00:/weed/data
       - ~/seaweedfs/entrypoint:/weed/entrypoint
   master1:
     image: chrislusf/seaweedfs:1.60
@@ -27,7 +27,7 @@ services:
     entrypoint: /weed/entrypoint/entrypoint.sh
     command: 'master -ip=master1 -port=9333 -defaultReplication="010" -peers="master0:9333,master1:9333,master2:9333" -mdir=/weed/data'
     volumes:
-      - ~/seaweedfs/mdata01:/weed/data
+      - /mnt/local/seeweedfs-master01:/weed/data
       - ~/seaweedfs/entrypoint:/weed/entrypoint
   master2:
     image: chrislusf/seaweedfs:1.60
@@ -37,7 +37,7 @@ services:
     entrypoint: /weed/entrypoint/entrypoint.sh
     command: 'master -ip=master2 -port=9333 -defaultReplication="010" -peers="master0:9333,master1:9333,master2:9333" -mdir=/weed/data'
     volumes:
-      - ~/seaweedfs/mdata02:/weed/data
+      - /mnt/local/seeweedfs-master02:/weed/data
       - ~/seaweedfs/entrypoint:/weed/entrypoint
 
   ## Check Volume Server Status
@@ -52,7 +52,7 @@ services:
     entrypoint: /weed/entrypoint/entrypoint.sh
     command: 'volume -port=8080 -mserver="master0:9333,master1:9333,master2:9333" -max=1000 -dir=/weed/data/volume -rack=0'
     volumes:
-      - ~/seaweedfs/vdata00:/weed/data/volume
+      - /mnt/local/seeweedfs-volume00:/weed/data/volume
       - ~/seaweedfs/entrypoint:/weed/entrypoint
     depends_on:
       - master0
@@ -66,7 +66,7 @@ services:
     entrypoint: /weed/entrypoint/entrypoint.sh
     command: 'volume -port=8080 -mserver="master0:9333,master1:9333,master2:9333" -max=1000 -dir=/weed/data/volume -rack=1'
     volumes:
-      - ~/seaweedfs/vdata01:/weed/data/volume
+      - /mnt/local/seeweedfs-volume01:/weed/data/volume
       - ~/seaweedfs/entrypoint:/weed/entrypoint
     depends_on:
       - master0
@@ -80,7 +80,7 @@ services:
     entrypoint: /weed/entrypoint/entrypoint.sh
     command: 'volume -port=8080 -mserver="master0:9333,master1:9333,master2:9333" -max=1000 -dir=/weed/data/volume -rack=2'
     volumes:
-      - ~/seaweedfs/vdata02:/weed/data/volume
+      - /mnt/local/seeweedfs-volume02:/weed/data/volume
       - ~/seaweedfs/entrypoint:/weed/entrypoint
     depends_on:
       - master0
@@ -97,7 +97,7 @@ services:
     entrypoint: /weed/entrypoint/entrypoint.sh
     command: 'filer -port=8888 -defaultReplicaPlacement="010" -master="master0:9333,master1:9333,master2:9333" -collection=faces -encryptVolumeData=true'
     volumes:
-      - ~/seaweedfs/fdata00:/data/filerldb2
+      - /mnt/local/seeweedfs-filer00:/data/filerldb2
       - ~/seaweedfs/entrypoint:/weed/entrypoint
     tty: true
     stdin_open: true

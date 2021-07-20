@@ -17,7 +17,7 @@ services:
     entrypoint: /weed/entrypoint/entrypoint.sh
     command: 'master -ip=master0 -port=9333 -defaultReplication="000" -peers="master0:9333" -mdir=/weed/data'
     volumes:
-      - ~/seaweedfs/mdata:/weed/data
+      - /mnt/local/seeweedfs-master:/weed/data
       - ~/seaweedfs/entrypoint:/weed/entrypoint
 
   ## Check Volume Server Status
@@ -32,7 +32,7 @@ services:
     entrypoint: /weed/entrypoint/entrypoint.sh
     command: 'volume -ip=volume0 -port=8080 -mserver="master0:9333" -max=1000 -dir=/weed/data/volume -rack=0'
     volumes:
-      - ~/seaweedfs/vdata:/weed/data/volume
+      - /mnt/local/seeweedfs-volume:/weed/data/volume
       - ~/seaweedfs/entrypoint:/weed/entrypoint
     depends_on:
       - master0
@@ -47,7 +47,7 @@ services:
     entrypoint: /weed/entrypoint/entrypoint.sh
     command: 'filer -port=8888 -defaultReplicaPlacement="000" -master="master0:9333" -collection=faces -encryptVolumeData=false'
     volumes:
-      - ~/seaweedfs/fdata:/data/filerldb2
+      - /mnt/local/seeweedfs-filer:/data/filerldb2
       - ~/seaweedfs/entrypoint:/weed/entrypoint
     tty: true
     stdin_open: true
