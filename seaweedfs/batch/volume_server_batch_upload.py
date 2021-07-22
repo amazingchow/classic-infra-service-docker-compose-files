@@ -13,7 +13,7 @@ def md5sum(filepath):
 
 
 def upload(filepath):
-    r = requests.get("http://localhost:9333/dir/assign?collection=faces&ttl=90d")
+    r = requests.get("http://localhost:9333/dir/assign?collection=faces_image&ttl=90d")
     if r.status_code != 200:
         print("failed to assign {}, status code: {}".format(filepath, r.status_code))
     print(r.json())
@@ -35,5 +35,6 @@ def upload(filepath):
 
 if __name__ == "__main__":
     cwd = os.getcwd()
-    for idx in range(1, 501):
-        upload("{}/imgs/IT001_001_{:08}.jpg".format(cwd, idx))
+    for _ in range(10):
+        for idx in range(1, 501):
+            upload("{}/imgs/IT001_001_{:08}.jpg".format(cwd, idx))
