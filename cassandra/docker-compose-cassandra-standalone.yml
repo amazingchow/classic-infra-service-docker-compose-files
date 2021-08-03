@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   cassandra:
-    image: cassandra:3.11.5
+    image: cassandra:3.11.4
     container_name: cassandra
     hostname: cassandra
     ports:
