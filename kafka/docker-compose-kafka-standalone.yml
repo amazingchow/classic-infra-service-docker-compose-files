@@ -17,11 +17,10 @@ services:
     ports:
       - "9092:9092"
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: "127.0.0.1" # localhost ip
+      KAFKA_ADVERTISED_HOST_NAME: "10.152.205.55"
       KAFKA_ZOOKEEPER_CONNECT: "zk:2181"
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_DELETE_TOPIC_ENABLE: "true"
-      KAFKA_CREATE_TOPICS: "topic-1:8:1,topic-2:8:1,topic-3:8:1" # your topics
       KAFKA_COMPRESSION_TYPE: "producer"
       KAFKA_MESSAGE_MAX_BYTES: 200000
       KAFKA_LOG_DIRS: "/var/lib/kafka0/disk00"
