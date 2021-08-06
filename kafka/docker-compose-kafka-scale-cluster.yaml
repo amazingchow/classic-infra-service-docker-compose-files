@@ -1,0 +1,54 @@
+version: "3.7"
+services:
+  ################################################################
+  # Add Two Extra Kafka Nodes 
+  ################################################################       
+  kafka_extra_node3:
+    image: wurstmeister/kafka:2.11-1.1.1
+    ports:
+      - "9094:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: "10.152.205.55"
+      KAFKA_ZOOKEEPER_CONNECT: "zk_node0:2181,zk_node1:2181,zk_node2:2181"
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_DELETE_TOPIC_ENABLE: "true"
+      KAFKA_COMPRESSION_TYPE: "producer"
+      KAFKA_MESSAGE_MAX_BYTES: 200000
+      KAFKA_LOG_DIRS: "/var/lib/kafka0/disk00"
+      KAFKA_LOG_CLEANUP_POLICY: "delete"
+      kAFKA_LOG_CLEANER_ENABLE: "false"
+      KAFKA_LOG_SEGMENT_BYTES: 209715200
+      KAFKA_LOG_SEGMENT_DELETE_DELAY_MS: 60000
+      KAFKA_LOG_RETENTION_BYTES: 209715200
+      KAFKA_LOG_RETENTION_HOURS: 24
+    volumes:
+      - ~/kafka/node03/disk00:/var/lib/kafka0/disk00
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - kafka_default
+  kafka_extra_node4:
+    image: wurstmeister/kafka:2.11-1.1.1
+    ports:
+      - "9095:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: "10.152.205.55"
+      KAFKA_ZOOKEEPER_CONNECT: "zk_node0:2181,zk_node1:2181,zk_node2:2181"
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_DELETE_TOPIC_ENABLE: "true"
+      KAFKA_COMPRESSION_TYPE: "producer"
+      KAFKA_MESSAGE_MAX_BYTES: 200000
+      KAFKA_LOG_DIRS: "/var/lib/kafka0/disk00"
+      KAFKA_LOG_CLEANUP_POLICY: "delete"
+      kAFKA_LOG_CLEANER_ENABLE: "false"
+      KAFKA_LOG_SEGMENT_BYTES: 209715200
+      KAFKA_LOG_SEGMENT_DELETE_DELAY_MS: 60000
+      KAFKA_LOG_RETENTION_BYTES: 209715200
+      KAFKA_LOG_RETENTION_HOURS: 24
+    volumes:
+      - ~/kafka/node04/disk00:/var/lib/kafka0/disk00
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - kafka_default
+networks:
+  kafka_default:
+    external: true

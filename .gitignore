@@ -1,4 +1,9 @@
 .vscode/
 .venv/
 venv/
+__pycache__/
 *.jpg
+kafka/result.txt
+kafka/reassignment-configuration.json
+kafka/resort-reassignment-configuration.json
+kafka/regenerate-reassignment-configuration.json
