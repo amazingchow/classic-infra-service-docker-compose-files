@@ -16,9 +16,10 @@ services:
       MAX_HEAP_SIZE: "256M"
       HEAP_NEWSIZE: "128M"
       CASSANDRA_BROADCAST_ADDRESS: "cassandra_node0"
+      CASSANDRA_CLUSTER_NAME: "cassandra-default-cluster"
+      CASSANDRA_NUM_TOKENS: 32
     volumes:
       - ~/cassandra/node00:/var/lib/cassandra
-      - ~/cassandra/node00-data:/cassandra_data
 
   cassandra_node1:
     image: cassandra:3.11.4
@@ -34,11 +35,12 @@ services:
       MAX_HEAP_SIZE: "256M"
       HEAP_NEWSIZE: "128M"
       CASSANDRA_BROADCAST_ADDRESS: "cassandra_node1"
+      CASSANDRA_CLUSTER_NAME: "cassandra-default-cluster"
+      CASSANDRA_NUM_TOKENS: 32
       CASSANDRA_SEEDS: "cassandra_node0"  
     volumes:
       - ~/cassandra/node01:/var/lib/cassandra
-      - ~/cassandra/node01-data:/cassandra_data
-    
+
   cassandra_node2:
     image: cassandra:3.11.4
     container_name: cassandra_node2
@@ -53,7 +55,8 @@ services:
       MAX_HEAP_SIZE: "256M"
       HEAP_NEWSIZE: "128M"
       CASSANDRA_BROADCAST_ADDRESS: "cassandra_node2"
+      CASSANDRA_CLUSTER_NAME: "cassandra-default-cluster"
+      CASSANDRA_NUM_TOKENS: 32
       CASSANDRA_SEEDS: "cassandra_node0"
     volumes:
       - ~/cassandra/node02:/var/lib/cassandra
-      - ~/cassandra/node02-data:/cassandra_data

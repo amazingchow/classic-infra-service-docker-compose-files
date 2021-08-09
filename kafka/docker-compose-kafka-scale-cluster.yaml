@@ -26,6 +26,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - kafka_default
+
   kafka_extra_node4:
     image: wurstmeister/kafka:2.11-1.1.1
     ports:
@@ -49,6 +50,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - kafka_default
+
 networks:
   kafka_default:
     external: true
