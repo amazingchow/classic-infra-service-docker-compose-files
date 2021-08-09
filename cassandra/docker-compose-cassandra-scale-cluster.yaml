@@ -1,0 +1,50 @@
+version: "3.7"
+services:
+  ################################################################
+  # Add Two Extra Cassandra Nodes
+  # 
+  # https://docs.datastax.com/en/cassandra-oss/3.x/cassandra/operations/opsAddNodeToCluster.html
+  ################################################################
+  cassandra_node3:
+    image: cassandra:3.11.4
+    container_name: cassandra_node3
+    hostname: cassandra_node3
+    ports:
+      - "17300:7000"
+      - "17301:7001"
+      - "19342:9042"
+    environment:
+      MAX_HEAP_SIZE: "256M"
+      HEAP_NEWSIZE: "128M"
+      CASSANDRA_BROADCAST_ADDRESS: "cassandra_node3"
+      CASSANDRA_CLUSTER_NAME: "cassandra-default-cluster"
+      CASSANDRA_NUM_TOKENS: 32
+      CASSANDRA_SEEDS: "cassandra_node0"  
+    volumes:
+      - ~/cassandra/node03:/var/lib/cassandra
+    networks:
+      - cassandra_default
+    
+  cassandra_node4:
+    image: cassandra:3.11.4
+    container_name: cassandra_node4
+    hostname: cassandra_node4
+    ports:
+      - "17400:7000"
+      - "17401:7001"
+      - "19442:9042"
+    environment:
+      MAX_HEAP_SIZE: "256M"
+      HEAP_NEWSIZE: "128M"
+      CASSANDRA_BROADCAST_ADDRESS: "cassandra_node4"
+      CASSANDRA_CLUSTER_NAME: "cassandra-default-cluster"
+      CASSANDRA_NUM_TOKENS: 32
+      CASSANDRA_SEEDS: "cassandra_node0"
+    volumes:
+      - ~/cassandra/node04:/var/lib/cassandra
+    networks:
+      - cassandra_default
+
+networks:
+  cassandra_default:
+    external: true
