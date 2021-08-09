@@ -14,6 +14,7 @@ from gen.pb_python.people_pb2 import Person
 __KAFKA_BROKERS = ["127.0.0.1:9091", "127.0.0.1:9092", "127.0.0.1:9093"]
 __PRODUCER = kafka.KafkaProducer(bootstrap_servers=__KAFKA_BROKERS)
 
+
 def produce(send_times : int, topic : str):
     for _ in tqdm.tqdm(range(send_times)):
         person_in_json_format = {
