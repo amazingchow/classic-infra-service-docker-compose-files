@@ -1,0 +1,12 @@
+version: '2'
+services:
+  web:
+    image: ubuntu/apache2:2.4-21.04_beta
+  lb:
+    image: dockercloud/haproxy:1.6.7
+    links:
+     - web
+    ports:
+     - 8080:80
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
