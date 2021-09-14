@@ -1,11 +1,28 @@
 version: "3.7"
 services:
+  ################################################################
+  # CommitLog
+  # 
+  # https://distributeddatastore.blogspot.com/2021/05/commit-log.html
+  #
+  # MemTable
+  # 
+  # https://distributeddatastore.blogspot.com/2020/03/cassandra-memtable.html
+  #
+  # SSTable
+  # 
+  # https://distributeddatastore.blogspot.com/2020/03/cassandra-new-sstable-storage-format.html
+  # 
+  # Cassandra sstable metadata, index and data file readers.
+  #
+  # https://github.com/bharatendra/ctools
+  ################################################################
   cassandra:
     image: cassandra:3.11.4
     container_name: cassandra
     hostname: cassandra
     ports:
-      - "9042:9042" # CQL native transport port
+      - "19042:9042" # CQL native transport port
     environment:
       MAX_HEAP_SIZE: "256M"
       HEAP_NEWSIZE: "128M"
