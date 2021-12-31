@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  elasticsearch:
+    image: elasticsearch:7.10.1
+    hostname: es
+    ports:
+      - 19200:9200
+      - 19300:9300
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      # Use single node discovery in order to disable production mode and avoid bootstrap checks.
+      # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
+      discovery.type: single-node

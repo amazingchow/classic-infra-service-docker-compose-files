@@ -22,7 +22,7 @@ services:
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_DELETE_TOPIC_ENABLE: "true"
       KAFKA_COMPRESSION_TYPE: "producer"
-      KAFKA_MESSAGE_MAX_BYTES: 200000
+      KAFKA_MESSAGE_MAX_BYTES: 4194304
       KAFKA_LOG_DIRS: "/var/lib/kafka0/disk00"
       KAFKA_LOG_CLEANUP_POLICY: "delete"
       kAFKA_LOG_CLEANER_ENABLE: "false"
