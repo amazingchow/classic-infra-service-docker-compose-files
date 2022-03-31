@@ -1,0 +1,18 @@
+version: "3.7"
+services:
+  # postgres数据库
+  db:
+    image: postgres:14.2
+    ports:
+      - 15432:5432
+    environment:
+      POSTGRES_PASSWORD: "ApCfsd5YPQ"
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - ~/postgresql/data:/var/lib/postgresql
+
+  # admin管理后台
+  admin:
+    image: adminer:4.7-standalone
+    ports:
+      - 18080:8080
