@@ -11,10 +11,14 @@ services:
       MYSQL_USER: "tester"
       MYSQL_PASS: "123456"
     volumes:
-      - ~/mysql/data:/var/lib/mysql
+      - mysql-data-volume:/var/lib/mysql
 
   # admin管理后台
   admin:
     image: adminer:4.7-standalone
     ports:
       - 18080:8080
+
+volumes:
+  mysql-data-volume:
+    driver: local

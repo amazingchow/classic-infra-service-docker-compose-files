@@ -13,7 +13,7 @@ def insert(total_queries : int):
         cluster = Cluster(["127.0.0.1"], port=19042)
         session = cluster.connect()
         session.execute("CREATE KEYSPACE IF NOT EXISTS people WITH replication \
-            = {'class': 'SimpleStrategy', 'replication_factor': '3' };")
+            = {'class': 'SimpleStrategy', 'replication_factor': '1' };")
         session.execute("USE people;")
         session.execute("CREATE TABLE IF NOT EXISTS people.eployees \
             (id uuid, name text, birth_day text, address text, job text, PRIMARY KEY (id));")
@@ -34,10 +34,10 @@ def insert(total_queries : int):
 
 
 if __name__ == "__main__":
-    TOTAL_QUERIES = 10000
+    TOTAL_QUERIES = 1000000
 
     st = time.time()
     insert(TOTAL_QUERIES)
     ed = time.time()
-    print("finished executing {} queries in {:.2f} seconds.".
+    print("finished executing {} inserts in {:.2f} seconds.".
         format(TOTAL_QUERIES, ed - st))
