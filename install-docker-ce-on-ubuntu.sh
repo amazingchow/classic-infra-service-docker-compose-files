@@ -47,6 +47,8 @@ function install_new_version_docker_ce() {
         docker-ce-cli \
         containerd.io
 
+    ## System has not been booted with systemd as init system (PID 1). Can't operate. Failed to connect to bus: Host is down.
+    ## The most common use of systemctl is to start services. This can often (but not always) be done on Ubuntu. But on WSL, we use "sudo service <servicename> start".
     sudo systemctl start docker
     sudo systemctl enable docker
 
@@ -63,7 +65,7 @@ install_new_version_docker_ce
 function install_docker_compose() {
     sudo apt-get remove -y docker-compose
 
-    DOCKER_COMPOSE_RELEASE=`curl -s https://github.com/docker/compose/releases/latest | cut -d'"' -f2 | cut -d'/' -f8-`
+    DOCKER_COMPOSE_RELEASE=v2.12.2
     sudo curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_RELEASE}/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
     docker-compose -v
